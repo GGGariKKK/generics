@@ -31,6 +31,18 @@ public class MyQueue<T> {
         return (T) values[head++];
     }
 
+    public boolean remove(T value){
+        for(int i = head; i <= tail; i++){
+            if (values[i] == value){
+                for(int j = i + 1; j < tail; j++)
+                    values[j - 1] = values[j];
+                tail--;
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void clear(){
         values = new Object[DEFAULT_SIZE];
         head = tail = 0;
