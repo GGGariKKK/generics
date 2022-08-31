@@ -3,14 +3,16 @@ package generics;
 public class GenericsTest {
     public static void main(String[] args) {
         //myArrayListTest();
-        
+
         //myLinkedListTest();
 
-        myQueueTest();
+        //myQueueTest();
+
+        myStackTest();
     }
 
 
-    public static void myArrayListTest(){
+    public static void myArrayListTest() {
         var arList = new MyArrayList<String>();
         arList.add("a");
         arList.add("b");
@@ -30,8 +32,8 @@ public class GenericsTest {
 
         System.out.println(arList.size());
     }
-    
-    private static void myLinkedListTest() {
+
+    public static void myLinkedListTest() {
         var lList = new MyLinkedList<String>();
         lList.add("a");
         lList.add("b");
@@ -52,7 +54,7 @@ public class GenericsTest {
         System.out.println(lList.size());
     }
 
-    private static void myQueueTest() {
+    public static void myQueueTest() {
         var queue = new MyQueue<Integer>();
         queue.add(1);
         queue.add(2);
@@ -67,5 +69,22 @@ public class GenericsTest {
         System.out.println(queue);
         queue.clear();
         System.out.println(queue);
+    }
+
+    public static void myStackTest() {
+        var stack = new MyStack<Integer>();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+
+        System.out.println(stack);
+        System.out.println(stack.peek());
+        System.out.println(stack.pop());
+        System.out.println(stack);
+        System.out.println(stack.remove(2));
+        System.out.println(stack);
+        System.out.println(stack.size());
+        stack.clear();
+        System.out.println(stack);
     }
 }
