@@ -4,11 +4,12 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class MyArrayList<T> {
+    private final static int DEFAULT_SIZE = 5;
     private Object[] data;
     private int pointer;
 
     public MyArrayList() {
-        data = new Object[1];
+        data = new Object[DEFAULT_SIZE];
     }
 
     public void add(T value) {
@@ -29,7 +30,7 @@ public class MyArrayList<T> {
     }
 
     public void clear() {
-        data = new Object[1];
+        data = new Object[DEFAULT_SIZE];
         pointer = 0;
     }
 
