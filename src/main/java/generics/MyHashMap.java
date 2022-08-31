@@ -13,24 +13,13 @@ public class MyHashMap<K, V> {
         values = new Object[DEFAULT_SIZE];
     }
 
-    public static void main(String[] args) {
-        var map = new MyHashMap<String, Integer>();
-        System.out.printf("a = %d\tb = %d\tc = %d%n", "a".hashCode(), "b".hashCode(), "c".hashCode());
-        map.put("b", 4);
-        map.put("c", 4);
-        map.put("d", 4);
-        map.put("e", 4);
-        map.put("f", 4);
-        map.put("g", 4);
-        map.put("h", 2);
-        map.put("i", 2);
-        map.put("j", 1);
-        System.out.println(map);
-    }
-
     public V put(K key, V value) {
+        if (1.0 * size() / values.length >= 0.75)
+            rehash();
+
         var index = key.hashCode() % values.length;
         var entryToPut = new Entry<>(key, value);
+
         if (values[index] == null) {
             var temp = new MyLinkedList<Entry<K, V>>();
             temp.add(entryToPut);
@@ -54,9 +43,8 @@ public class MyHashMap<K, V> {
         if (values[index] != null) {
             var entries = (MyLinkedList<Entry<K, V>>) values[index];
             for (int i = 0; i < entries.size(); i++)
-                if (entries.get(i).getKey() == key) {
+                if (entries.get(i).getKey() == key)
                     return entries.remove(i).getValue();
-                }
         }
 
         return null;
@@ -68,23 +56,35 @@ public class MyHashMap<K, V> {
 
     public int size() {
         return (int) Arrays.stream(values)
-                .filter(obj -> Objects.nonNull(obj) && ((MyLinkedList)obj).size() != 0)
+                .filter(obj -> Objects.nonNull(obj) && ((MyLinkedList) obj).size() != 0)
                 .count();
     }
 
-    public V get(K key){
+    public V get(K key) {
         var index = key.hashCode() % values.length;
-        var entries = (MyLinkedList<Entry<K, V>>)values[index];
-        for(int i = 0; i < entries.size(); i++)
-            if(entries.get(i).getKey() == key)
+        var entries = (MyLinkedList<Entry<K, V>>) values[index];
+        for (int i = 0; i < entries.size(); i++)
+            if (entries.get(i).getKey() == key)
                 return entries.get(i).getValue();
         return null;
+    }
+
+    private void rehash() {
+        var oldValues = values;
+        values = new Object[values.length * 2];
+
+        for (Object oldValue : oldValues)
+            if (oldValue != null) {
+                var entries = ((MyLinkedList<Entry<K, V>>) oldValue);
+                for (int j = 0; j < entries.size(); j++)
+                    put(entries.get(j).getKey(), entries.get(j).getValue());
+            }
     }
 
     @Override
     public String toString() {
         return Arrays.stream(values)
-                .filter(obj -> Objects.nonNull(obj) && ((MyLinkedList)obj).size() != 0)
+                .filter(obj -> Objects.nonNull(obj) && ((MyLinkedList) obj).size() != 0)
                 .map(obj -> (MyLinkedList<Entry<K, V>>) obj)
                 .reduce(new StringJoiner(", ", "[", "]"), (sJoiner, listOfEntries) -> sJoiner.add(listOfEntries.toString()), (z, g) -> z)
                 .toString();
