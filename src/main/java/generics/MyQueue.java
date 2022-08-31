@@ -15,7 +15,7 @@ public class MyQueue<T> {
         values = new Object[DEFAULT_SIZE];
     }
 
-    public void enqueue(T value){
+    public void add(T value){
         if (tail >= values.length)
             values = Arrays.copyOf(values, values.length * 2);
         values[tail++] = value;
