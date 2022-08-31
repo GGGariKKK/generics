@@ -2,6 +2,7 @@ package generics;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 public class MyArrayList<T> {
     private final static int DEFAULT_SIZE = 5;
@@ -42,5 +43,14 @@ public class MyArrayList<T> {
         if (index >= pointer)
             throw new IndexOutOfBoundsException();
         return (T) data[index];
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.stream(data)
+                .filter(Objects::nonNull)
+                .map(obj -> (T)obj)
+                .reduce(new StringJoiner(", ", "[", "]"), (sJoiner, val) -> sJoiner.add(val.toString()), (x, y) -> x)
+                .toString();
     }
 }
