@@ -4,9 +4,12 @@ public class GenericsTest {
     public static void main(String[] args) {
         //myArrayListTest();
         
-        myLinkedListTest();
+        //myLinkedListTest();
+
+        myQueueTest();
     }
-    
+
+
     public static void myArrayListTest(){
         var arList = new MyArrayList<String>();
         arList.add("a");
@@ -47,5 +50,22 @@ public class GenericsTest {
         System.out.println(lList);
 
         System.out.println(lList.size());
+    }
+
+    private static void myQueueTest() {
+        var queue = new MyQueue<Integer>();
+        queue.add(1);
+        queue.add(2);
+        queue.add(3);
+
+        System.out.println(queue);
+        System.out.println(queue.size());
+        System.out.println(queue.peek());
+        System.out.println(queue.poll());
+        System.out.println(queue);
+        System.out.println(queue.remove(2));
+        System.out.println(queue);
+        queue.clear();
+        System.out.println(queue);
     }
 }
