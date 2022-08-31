@@ -8,7 +8,9 @@ public class GenericsTest {
 
         //myQueueTest();
 
-        myStackTest();
+        //myStackTest();
+
+        myHashMapTest();
     }
 
 
@@ -86,5 +88,38 @@ public class GenericsTest {
         System.out.println(stack.size());
         stack.clear();
         System.out.println(stack);
+    }
+
+    public static void myHashMapTest(){
+        var map = new MyHashMap<Integer, Character>();
+
+        map.put((int)'a', 'a');
+        map.put((int)'b', 'b');
+        map.put((int)'c', 'c');
+
+        System.out.println(map);
+
+        //Let's make a collision:
+        map.put((int)'i', 'i');
+
+        System.out.println(map);
+
+        //Let's put more entries to make hashtable rehash itself
+        map.put((int)'d', 'd');
+        map.put((int)'e', 'e');
+        map.put((int)'f', 'f');
+
+        //In output we can see that 'b' and 'i' values are not in the same bucket now, that is because size of hashtable increased by two times (from 7 to 14) and the values computed by hash function differ
+        System.out.println(map);
+
+        map.remove((int)'e');
+
+        System.out.println(map);
+
+        System.out.println(map.get(97));
+
+        map.clear();
+
+        System.out.println(map);
     }
 }
