@@ -41,8 +41,7 @@ public class MyArrayList<T> {
     }
 
     public T get(int index) {
-        if (index >= pointer)
-            throw new IndexOutOfBoundsException();
+        Objects.checkIndex(index, pointer);
         return (T) data[index];
     }
 
