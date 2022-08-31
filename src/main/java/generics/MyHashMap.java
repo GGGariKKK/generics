@@ -6,6 +6,7 @@ import java.util.StringJoiner;
 
 public class MyHashMap<K, V> {
     private static final int DEFAULT_SIZE = 7;
+    private static final double DEFAULT_LOAD_FACTOR = 0.6;
 
     private Object[] values;
 
@@ -14,7 +15,7 @@ public class MyHashMap<K, V> {
     }
 
     public V put(K key, V value) {
-        if (1.0 * size() / values.length >= 0.75)
+        if (1.0 * size() / values.length >= DEFAULT_LOAD_FACTOR)
             rehash();
 
         var index = key.hashCode() % values.length;
