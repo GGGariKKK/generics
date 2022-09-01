@@ -2,13 +2,17 @@ package generics;
 
 public class GenericsTest {
     public static void main(String[] args) {
-        //myArrayListTest();
+        myArrayListTest();
+        System.out.println("\n\n");
 
-        //myLinkedListTest();
+        myLinkedListTest();
+        System.out.println("\n\n");
 
-        //myQueueTest();
+        myQueueTest();
+        System.out.println("\n\n");
 
-        //myStackTest();
+        myStackTest();
+        System.out.println("\n\n");
 
         myHashMapTest();
     }
