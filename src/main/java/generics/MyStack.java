@@ -54,9 +54,9 @@ public class MyStack<T> {
 
     @Override
     public String toString() {
-        var res = new StringJoiner(", ", "[", "]");
+        var result = new StringJoiner(", ", "[", "]");
         for (int i = 0; i <= pointer; i++)
-            res.add(Objects.requireNonNullElse(stack[i], "null").toString());
-        return res.toString();
+            result.add(Objects.requireNonNullElse(stack[i], "null").toString());
+        return result.toString();
     }
 }

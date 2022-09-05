@@ -8,13 +8,14 @@ public class MyLinkedList<T> {
     private int length;
 
     public void add(T value) {
-        if (head == null)
+        if (head == null) {
             head = new Node<>(null, null, value);
-        else {
-            var curr = head;
-            while (curr.next != null)
-                curr = curr.next;
-            curr.next = new Node<>(null, curr, value);
+        } else {
+            Node<T> current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = new Node<>(null, current, value);
         }
         length++;
     }
@@ -22,22 +23,22 @@ public class MyLinkedList<T> {
     public T remove(int index) {
         Objects.checkIndex(index, length);
 
-        var curr = head;
+        Node<T> current = head;
 
-        while (index-- != 0) curr = curr.next;
+        while (index-- != 0) current = current.next;
 
-        if (curr == head) {
+        if (current == head) {
             head = head.next;
-
-            if (head != null)
+            if (head != null) {
                 head.previous = null;
+            }
         }
 
-        if (curr.previous != null) curr.previous.next = curr.next;
-        if (curr.next != null) curr.next.previous = curr.previous;
+        if (current.previous != null) current.previous.next = current.next;
+        if (current.next != null) current.next.previous = current.previous;
 
         length--;
-        return curr.value;
+        return current.value;
     }
 
     public void clear() {
@@ -52,20 +53,21 @@ public class MyLinkedList<T> {
     public T get(int index) {
         Objects.checkIndex(index, length);
 
-        var curr = head;
-        while (index-- != 0) curr = curr.next;
-        return curr.value;
+        Node<T> current = head;
+        while (index-- != 0) current = current.next;
+
+        return current.value;
     }
 
     @Override
     public String toString() {
-        var res = new StringJoiner(", ", "[", "]");
-        var curr = head;
-        while (curr != null) {
-            res.add(Objects.requireNonNullElse(curr.value, "null").toString());
-            curr = curr.next;
+        StringJoiner result = new StringJoiner(", ", "[", "]");
+        Node<T> current = head;
+        while (current != null) {
+            result.add(Objects.requireNonNullElse(current.value, "null").toString());
+            current = current.next;
         }
-        return res.toString();
+        return result.toString();
     }
 
     private static class Node<T> {

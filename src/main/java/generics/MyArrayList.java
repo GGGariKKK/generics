@@ -15,20 +15,22 @@ public class MyArrayList<T> {
     }
 
     public void add(T value) {
-        if (pointer == data.length)
+        if (pointer == data.length) {
             data = Arrays.copyOf(data, data.length * 2);
+        }
         data[pointer++] = value;
     }
 
     public T remove(int index) {
         Objects.checkIndex(index, pointer);
-        var removed = data[index];
+        T removed = (T) data[index];
 
-        for (int i = index + 1; i < size(); i++)
+        for (int i = index + 1; i < size(); i++) {
             data[i - 1] = data[i];
+        }
 
         pointer--;
-        return (T) removed;
+        return removed;
     }
 
     public void clear() {

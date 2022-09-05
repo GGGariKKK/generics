@@ -18,15 +18,15 @@ public class MyHashMap<K, V> {
         if (1.0 * size() / values.length >= DEFAULT_LOAD_FACTOR)
             rehash();
 
-        var index = key == null ? 0 : key.hashCode() % values.length;
-        var entryToPut = new Entry<>(key, value);
+        int index = key == null ? 0 : key.hashCode() % values.length;
+        Entry<K, V> entryToPut = new Entry<>(key, value);
 
         if (values[index] == null) {
-            var temp = new MyLinkedList<Entry<K, V>>();
-            temp.add(entryToPut);
-            values[index] = temp;
+            MyLinkedList<Entry<K, V>> temporary = new MyLinkedList<>();
+            temporary.add(entryToPut);
+            values[index] = temporary;
         } else {
-            var list = ((MyLinkedList<Entry<K, V>>) values[index]);
+            MyLinkedList<Entry<K, V>> list = ((MyLinkedList<Entry<K, V>>) values[index]);
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getKey() == key) {
                     list.add(entryToPut);
@@ -42,12 +42,13 @@ public class MyHashMap<K, V> {
         var index = key.hashCode() % values.length;
 
         if (values[index] != null) {
-            var entries = (MyLinkedList<Entry<K, V>>) values[index];
-            for (int i = 0; i < entries.size(); i++)
-                if (entries.get(i).getKey() == key)
+            MyLinkedList<Entry<K, V>> entries = (MyLinkedList<Entry<K, V>>) values[index];
+            for (int i = 0; i < entries.size(); i++) {
+                if (entries.get(i).getKey() == key) {
                     return entries.remove(i).getValue();
+                }
+            }
         }
-
         return null;
     }
 
@@ -62,24 +63,28 @@ public class MyHashMap<K, V> {
     }
 
     public V get(K key) {
-        var index = key == null ? 0 : key.hashCode() % values.length;
-        var entries = (MyLinkedList<Entry<K, V>>) values[index];
-        for (int i = 0; entries != null && i < entries.size(); i++)
-            if (entries.get(i).getKey() == key)
+        int index = key == null ? 0 : key.hashCode() % values.length;
+        MyLinkedList<Entry<K, V>> entries = (MyLinkedList<Entry<K, V>>) values[index];
+        for (int i = 0; entries != null && i < entries.size(); i++) {
+            if (entries.get(i).getKey() == key) {
                 return entries.get(i).getValue();
+            }
+        }
         return null;
     }
 
     private void rehash() {
-        var oldValues = values;
+        Object[] oldValues = values;
         values = new Object[values.length * 2];
 
-        for (Object oldValue : oldValues)
+        for (Object oldValue : oldValues) {
             if (oldValue != null) {
-                var entries = ((MyLinkedList<Entry<K, V>>) oldValue);
-                for (int j = 0; j < entries.size(); j++)
+                MyLinkedList<Entry<K, V>> entries = ((MyLinkedList<Entry<K, V>>) oldValue);
+                for (int j = 0; j < entries.size(); j++) {
                     put(entries.get(j).getKey(), entries.get(j).getValue());
+                }
             }
+        }
     }
 
     @Override
