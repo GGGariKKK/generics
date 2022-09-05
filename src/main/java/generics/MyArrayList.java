@@ -2,13 +2,16 @@ package generics;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.StringJoiner;
+import java.util.stream.IntStream;
 
 public class MyArrayList<T> {
+    private final static int DEFAULT_SIZE = 5;
     private Object[] data;
     private int pointer;
 
     public MyArrayList() {
-        data = new Object[1];
+        data = new Object[DEFAULT_SIZE];
     }
 
     public void add(T value) {
@@ -29,7 +32,7 @@ public class MyArrayList<T> {
     }
 
     public void clear() {
-        data = new Object[1];
+        data = new Object[DEFAULT_SIZE];
         pointer = 0;
     }
 
@@ -40,5 +43,13 @@ public class MyArrayList<T> {
     public T get(int index) {
         Objects.checkIndex(index, pointer);
         return (T) data[index];
+    }
+
+    @Override
+    public String toString() {
+        return IntStream.range(0, pointer)
+                .mapToObj(i -> (T) data[i])
+                .reduce(new StringJoiner(", ", "[", "]"), (sJoiner, val) -> sJoiner.add(Objects.requireNonNullElse(val, "null").toString()), (x, y) -> x)
+                .toString();
     }
 }

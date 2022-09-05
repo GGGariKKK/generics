@@ -62,7 +62,7 @@ public class MyLinkedList<T> {
         var res = new StringJoiner(", ", "[", "]");
         var curr = head;
         while (curr != null) {
-            res.add(curr.value.toString());
+            res.add(Objects.requireNonNullElse(curr.value, "null").toString());
             curr = curr.next;
         }
         return res.toString();

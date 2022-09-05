@@ -1,6 +1,7 @@
 package generics;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 public class MyQueue<T> {
@@ -56,7 +57,7 @@ public class MyQueue<T> {
     public String toString() {
         var res = new StringJoiner(", ", "[", "]");
         for(int i = head; i < tail; i++)
-            res.add(values[i].toString());
+            res.add(Objects.requireNonNullElse(values[i], "null").toString());
         return res.toString();
     }
 
