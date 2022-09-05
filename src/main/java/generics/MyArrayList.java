@@ -49,7 +49,7 @@ public class MyArrayList<T> {
     public String toString() {
         return IntStream.range(0, pointer)
                 .mapToObj(i -> (T) data[i])
-                .reduce(new StringJoiner(", ", "[", "]"), (sJoiner, val) -> sJoiner.add(val.toString()), (x, y) -> x)
+                .reduce(new StringJoiner(", ", "[", "]"), (sJoiner, val) -> sJoiner.add(Objects.requireNonNullElse(val, "null").toString()), (x, y) -> x)
                 .toString();
     }
 }

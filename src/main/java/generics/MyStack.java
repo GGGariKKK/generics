@@ -2,6 +2,7 @@ package generics;
 
 import java.util.Arrays;
 import java.util.EmptyStackException;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 public class MyStack<T> {
@@ -55,7 +56,7 @@ public class MyStack<T> {
     public String toString() {
         var res = new StringJoiner(", ", "[", "]");
         for (int i = 0; i <= pointer; i++)
-            res.add(stack[i].toString());
+            res.add(Objects.requireNonNullElse(stack[i], "null").toString());
         return res.toString();
     }
 }
