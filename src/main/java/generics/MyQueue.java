@@ -8,13 +8,6 @@ public class MyQueue<T> {
     private Node<T> tail;
     private int size;
 
-    public static void main(String[] args) {
-        var queue = new MyQueue<Integer>();
-        queue.add(2);
-        queue.add(4);
-        queue.add(3);
-    }
-
     public void add(T value) {
         if (head == null) {
             head = new Node<>(null, value);
