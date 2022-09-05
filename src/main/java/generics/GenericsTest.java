@@ -17,7 +17,6 @@ public class GenericsTest {
         myHashMapTest();
     }
 
-
     public static void myArrayListTest() {
         var arList = new MyArrayList<String>();
         arList.add("a");
