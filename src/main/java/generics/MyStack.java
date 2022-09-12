@@ -8,11 +8,12 @@ import java.util.StringJoiner;
 public class MyStack<T> {
     private static final int DEFAULT_SIZE = 3;
 
-    private Object[] stack;
+    private T[] stack;
     private int pointer;
 
+    @SuppressWarnings("unchecked")
     public MyStack() {
-        stack = new Object[DEFAULT_SIZE];
+        stack = (T[]) new Object[DEFAULT_SIZE];
         pointer = -1;
     }
 
@@ -32,8 +33,9 @@ public class MyStack<T> {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     public void clear(){
-        stack = new Object[DEFAULT_SIZE];
+        stack = (T[]) new Object[DEFAULT_SIZE];
         pointer = -1;
     }
 
@@ -44,13 +46,13 @@ public class MyStack<T> {
     public T peek(){
         if(pointer == -1)
             throw new EmptyStackException();
-        return (T) stack[pointer];
+        return stack[pointer];
     }
 
     public T pop(){
         if(pointer == -1)
             throw new EmptyStackException();
-        return (T) stack[pointer--];
+        return stack[pointer--];
     }
 
     @Override
