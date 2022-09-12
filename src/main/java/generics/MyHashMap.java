@@ -18,7 +18,7 @@ public class MyHashMap<K, V> {
         if (1.0 * size() / values.length >= DEFAULT_LOAD_FACTOR)
             rehash();
 
-        int index = key == null ? 0 : key.hashCode() % values.length;
+        int index = getHashIndex(key);
         Entry<K, V> entryToPut = new Entry<>(key, value);
 
         if (values[index] == null) {
@@ -39,8 +39,7 @@ public class MyHashMap<K, V> {
     }
 
     public V remove(K key) {
-        var index = key.hashCode() % values.length;
-
+        int index = getHashIndex(key);
         if (values[index] != null) {
             MyLinkedList<Entry<K, V>> entries = (MyLinkedList<Entry<K, V>>) values[index];
             for (int i = 0; i < entries.size(); i++) {
@@ -63,7 +62,7 @@ public class MyHashMap<K, V> {
     }
 
     public V get(K key) {
-        int index = key == null ? 0 : key.hashCode() % values.length;
+        int index = getHashIndex(key);
         MyLinkedList<Entry<K, V>> entries = (MyLinkedList<Entry<K, V>>) values[index];
         for (int i = 0; entries != null && i < entries.size(); i++) {
             if (entries.get(i).getKey() == key) {
@@ -85,6 +84,10 @@ public class MyHashMap<K, V> {
                 }
             }
         }
+    }
+
+    private int getHashIndex(K key){
+        return key == null ? 0 : key.hashCode() % values.length;
     }
 
     @Override

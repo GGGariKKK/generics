@@ -53,7 +53,7 @@ public class MyQueue<T> {
         return false;
     }
 
-    public void clear(){
+    public void clear() {
         head = null;
         tail = null;
         size = 0;
