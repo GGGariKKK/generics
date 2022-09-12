@@ -6,7 +6,8 @@ import java.util.StringJoiner;
 import java.util.stream.IntStream;
 
 public class MyArrayList<T> {
-    private final static int DEFAULT_SIZE = 5;
+    private static final int DEFAULT_SIZE = 5;
+
     private Object[] data;
     private int pointer;
 

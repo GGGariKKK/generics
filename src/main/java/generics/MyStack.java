@@ -7,6 +7,7 @@ import java.util.StringJoiner;
 
 public class MyStack<T> {
     private static final int DEFAULT_SIZE = 3;
+
     private Object[] stack;
     private int pointer;
 
